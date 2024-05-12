@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selection Sort: Pior Caso</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .number-list {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .number-list li {
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        margin-right: 5px;
+    }
+
+    .swap {
+        background-color: #ffa500; /* Laranja */
+    }
+
+    .comparison {
+        background-color: #8400ff; /* Vermelho */
+    }
+</style>
+</head>
+<body>
+<div class="container">
+    <h2>Pior Caso</h2>
+    <ul class="number-list" id="numberList">
+        <li class="num5">5</li>
+        <li class="num4">4</li>
+        <li class="num3">3</li>
+        <li class="num2">2</li>
+        <li class="num1">1</li>
+    </ul>
+    <button onclick="selectionSort()">Ordenar</button>
+</div>
+
+<script>
+    async function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function selectionSort() {
+        var list = document.getElementById('numberList');
+        var items = list.getElementsByTagName('li');
+        var length = items.length;
+
+        for (var i = 0; i < length - 1; i++) {
+            for (var j = i + 1; j < length; j++) {
+                items[i].classList.add('comparison');
+                items[j].classList.add('comparison');
+                await delay(1000);
+
+                if (parseInt(items[j].innerText) < parseInt(items[i].innerText)) {
+                    items[j].classList.add('swap');
+                    await delay(1000);
+                    
+                    var temp = items[i].innerText;
+                    items[i].innerText = items[j].innerText;
+                    items[j].innerText = temp;
+
+                    // Colorindo números
+                    var tempClass = items[i].className;
+                    items[i].className = items[j].className;
+                    items[j].className = tempClass;
+                }
+                
+                items[i].classList.remove('comparison', 'swap');
+                items[j].classList.remove('comparison', 'swap');
+            }
+        }
+    }
+</script>
+</body>
+</html>
